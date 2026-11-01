@@ -1,0 +1,37 @@
+
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: cleanup
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: remove-old-files
+      image: alpine:3.20
+      workingDir: $(workspaces.source.path)
+      script: |
+        #!/bin/sh
+        echo "Cleaning workspace..."
+        find . -type f -name "*.tmp" -delete
+        echo "Cleanup completed."
+
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: jest-test
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: run-jest-tests
+      image: node:20
+      workingDir: $(workspaces.source.path)/product-catalogue-microservice
+      script: |
+        #!/bin/sh
+        set -e
+        echo "Installing dependencies..."
+        npm ci
+        echo "Running Jest tests..."
+        npm test -- --runInBand
