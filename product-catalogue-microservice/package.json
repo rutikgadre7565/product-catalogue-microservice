@@ -1,0 +1,26 @@
+{
+  "name": "product-catalogue-microservice",
+  "version": "1.0.0",
+  "description": "Product Catalogue REST API with CRUD operations and automated testing",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --runInBand",
+    "test:features": "cucumber-js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "express": "^4.21.2",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.0.1",
+    "@faker-js/faker": "^9.3.0",
+    "factory-girl": "^5.0.4",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "selenium-webdriver": "^4.27.0"
+  },
+  "jest": { "testEnvironment": "node", "clearMocks": true }
+}
